@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.title {
+    font: 30px rockout;
+    font-weight: bold;
+    text-align: center;
+    margin: 50px;
+}
+
+.pokedex div {
+  font: 12px sans-serif;
+  /* background-color: steelblue; */
+  text-align: left;
+  padding: 4px;
+  margin: 3px;
+  color:black;
+  width:200px;
+  max-width: 200px;
+  border: 3px solid grey;
+  overflow:auto;
+  /* width: 300px; */
+}
+
+.party {
+    /* float: left; */
+    display: grid;
+    /* clear:both; */
+}
+
+#pokedex_holder div {
+    /* display: grid; */
+    /* clear:both; */
+    /* border: 3px solid rgb(70, 33, 173); */
+    width: 300px;
+    max-width: 300px;
+    overflow:scroll;
+    height:410px;
+    /* margin: 30px; */
+    margin-left:10px;
+    margin-right:10px;
+}
+
+.pokedex_sort_header {
+    border: 3px solid red;
+    border-radius: 5px
+    height: 20px;
+    max-height: 20px;
+    text-align: center;
+    position: relative;
+    top: 10px;
+}
+
+.pokedex_sort_buttons {
+    height: 100px;
+    max-height: 100px;
+}
+
+.pokedex_sort_button {
+    width: 60px;
+    max-width: 60px;
+    height: 30px;
+    max-height: 30px;
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color: red;
+    display:inline-block;
+
+}
+
+
+#party_holder {
+    display:inline-block;
+    vertical-align:top;
+    border: 3px solid cyan;
+    border-radius: 10px;
+}
+
+#large_display {
+    width: 250px;
+    height: 300px;
+    border: 3px solid cyan;
+    padding: 10px;
+    border-radius: 10px;
+    margin-left:10px;
+    margin-right:10px;
+}
+
+#large_display_name {
+    margin: 10px;
+    text-align: center;
+}
+
+#large_display_image {
+    width: 80px;
+    height: 80px;
+    margin-left: 80px;
+}
+
+#button_add_to_team {
+    position: relative;
+    left: 25px;
+    margin:20px;
+    background-color:orange;
+    border-radius: 10px;
+    height: 25px;
+    width: 150px;
+}
+
+.party_slot {
+    width: 350px;
+    height: 60px;
+    text-align: left;
+    background-color: white;
+    margin: 3px;
+    color: black;
+    border-radius: 10px;
+    padding: 10px;
+    border: 2px solid black;
+    display:inline-block;
+    vertical-align: top;
+}
+
+.party_img {
+    max-height: 40px;
+    max-width: 40px;
+    display:inline-block;
+    vertical-align: center;
+}
+
+.party_name_type_holder {
+    width:150px;
+    display:inline-block;
+}
+
+.party_name {
+    /* display:inline-block; */
+    /* text-align: center; */
+    /* position: relative;
+    right: 20px; */
+    margin: 5px;
+    
+}
+
+.party_type1 {
+    /* display:inline-block; */
+    text-align: center;
+    width: 80px;
+    border-radius: 5px;
+    border: 0.5px solid grey;
+}
+
+.party_button_remove {
+    background-color: red;
+    border-radius: 5px;
+    width: 28px;
+    height: 28px;
+    display:inline-block;
+    text-align: center;
+    vertical-align: center;
+    margin-left: 125px;
+}
+
+.plot_holder {
+    margin: 100px;
+    overflow:visible;
+}
+
+
+.bar--positive {
+  fill: steelblue;
+}
+
+.bar--negative {
+  fill: darkorange;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+</style>
+
+<div class= "title">Pokemon Team Builder</div>
+
+<div>
+<div id="pokedex_holder" 
+    style="
+        display:inline-block;
+        vertical-align:top;
+        border: 3px solid cyan;
+        border-radius: 10px;
+        background-color:rgb(255, 60, 0);">
+        <!-- background-color:rgb(255, 60, 0); -->
+    <div id="pokedex_header" 
+        style="
+            width:300px; 
+            height:30px;
+            text-align: center;
+            margin: 20px"
+    > Pokedex </div>
+    <div class="pokedex"></div>
+
+    <div class="pokedex_sort_header">SORT KEYS</div>
+
+    <div class="pokedex_sort_buttons"></div>
+</div>
+
+<div id="large_display"
+    style="display:inline-block"
+    > 
+        <div style="
+        width:150px; 
+        height: 80px;
+        display:inline-block;
+        text-align: center;">
+        <img 
+            id="large_display_image"
+            src="pokemon_images/blank.jpg" 
+            
+        > </img>
+        </div>
+        <!-- <div style="display:inline-block"> -->
+            <div 
+                id="large_display_name">
+                 
+            </div>
+            <div id="large_display_type_1">
+                type 1:
+            </div>
+            <div id="large_display_type_2">
+                type 2:
+            </div>
+        <!-- </div> -->
+        <div id="large_display_hp">
+            hp:
+        </div>
+        <div  id="large_display_attack">
+            attack:
+        </div>
+        <div  id="large_display_special_attack">
+            special attack:
+        </div>
+        <div id="large_display_defense">
+            defense:
+        </div>
+        <div id="large_display_special_defense">
+            special defense:
+        </div>
+        <button 
+            id="button_add_to_team"
+        > Add To Team </button>
+</div>
+
+<div id="party_holder">
+    <div class="party"></div>
+</div>
+</div>
+
+<div class="plot_holder">
+    <div style="text-align:center; margin: 30px;
+    font-weight: bold;">
+        Is Your Team The Very Best?
+    </div>
+    <div style="text-align:center;">
+        Average Statistic Value Percent Better Compared to All Pokemon
+    </div>
+
+</div>
+
+<div class="writeup">
+    <div>Write Up</div>
+    <div>
+        Author: David Walter (dwalter@mit.edu)
+    </div>
+    <p>
+        In this visualization I wanted the user to explore the pokemon dataset in a form that is familar to a pokemon fan playing the games: building a team of six pokemon. The application flows naturally from left to right, and top to bottom, carrying the user from pokemon selection to analysis of the team in the plot. The user can look through the pokedex (list of all pokemon) and sort by certain attributes. When a pokemon is clicked in the pokedex or in the pokemon team, it appears in the middle view, where a user can see a more detailed list of stats for that individual pokemon. Then, the user can decide to add the pokemon to their team by clicking "add to team". Once a pokemon is in the team, its stats will contribute to the stats in the "Is Your Team the Very Best?" plot at the bottom. This plot shows how good a users selected team is compared to all pokemon on average. When a user sees more blue, that means they picked a better team and the average stats of their pokemon are relatively high, and when a user sees more red, then they know they have some stats that are relatively weaker on average. The user can make choices as to whether they want certain stats to be higher, and use the sorting to try to nudge their team toward having certain stats.
+    </p>
+    <p>
+        The use of images for each pokemon provides a redundant form of identification of pokemon in addition to their names, thereby accelerating a users ability to select and recognize pokemon whenever an icon appears. Some of the color choices were somewhat arbitrary, but choices like making the sort keys border and the sort keys buttons the same color helps the user to connect the two. The use of a red background for the delete buttons in the pokemon team section was a choice that matched up with a users expectations: red is usually associated with deleting when there is an "x". The choice to include the pokemon's type might seem unnecessary, but many users familiar with how pokemon works knows that the types matter when battling, because there are type strengths and weaknesses compared to other types. This information would be more critical to the application if it was to be expanded, but for now, the types are not included in the summary stats. 
+
+    </p>
+
+    <p>
+        I was a team of one. I used html, css, and d3js to build this visualization. I spent about 40 hours developing this application, mostly because I was learning d3 and css styling. If I had to rebuild this app or a similar app again it would probably take at most half the time. Getting used to d3 selections and iterating over data, and embarrassingly enough, the css styling, took a while to get used to, because by dom elements would always end up doing weird things and I had to learn how to position and scale and size my dom elements appropriately. 
+
+    </p>
+</div>
+
+
+
+
+<script src="d3.v3.min.js"></script>
+<script>
+
+
+stats = {
+    "hp": 1,
+    "attack": 1,
+    "defense": 1,
+    "sp_attack": 1,
+    "sp_defense": 1,
+}
+
+get_all_avg_stat = (data, key)=> {
+    // console.log(data[0][key])
+    // console.log(key)
+    total = 0
+    n = 0
+    for (i in data) {
+        d = data[i]
+        total += parseInt(d[key])
+        n += 1
+    }
+    return total / n
+}
+
+init_stats = (data)=> {
+    stats.hp = get_all_avg_stat(data, "hp")
+    stats.attack = get_all_avg_stat(data, "attack")
+    stats.defense = get_all_avg_stat(data, "defense")
+    stats.sp_attack = get_all_avg_stat(data, "sp_attack")
+    stats.sp_defense = get_all_avg_stat(data, "sp_defense")
+} 
+
+sort_key = "pokedex_number"
+sort_reverse = false
+
+reset_pokedex = (init=false) => {
+    d3.csv("pokemon.csv", (data)=>{
+
+        // data_sorted = data.sort((a, b)(a.pokedex_number - b.pokedex_number))
+
+        data = data.filter((d)=>(d.generation < 6))
+
+        if (init) {
+            init_stats(data)
+        }
+
+        data = data.sort((a, b)=>(a[sort_key] - b[sort_key]))
+        if (sort_reverse) {
+            data = data.reverse()
+        }
+
+        pokedex = d3.select(".pokedex")
+
+        pokedex.selectAll("div").remove()
+
+        pokedex_div = pokedex.selectAll("div")
+            .data(data)
+            .enter().append("div")
+
+        text_elems = pokedex_div
+            // .attr("id", (d)=>("pokedex_elem_" + d.pokedex_number))
+            .style("width", "270px")
+            .style("height", "50px")
+            .style("background-color", "cyan")
+            .style("border-radius","5px")
+            .style("overflow", "hidden")
+            .on("click", on_click_pokedex)
+            .text("text")
+            .text((d)=>(d.pokedex_number + " " + d.name))
+            .attr("class", "pokedex_text_elem")
+
+            
+        img_elems = pokedex_div
+            // .enter()
+            .append("img")
+            .attr("class", "pokedex_img_elem")
+            .attr("src", get_pokemon_img)
+            .attr("height", "40")
+            .attr("width", "40")
+            .attr("align", "right")
+
+        sort_elem = pokedex_div
+            .append("div")
+            .style("width", "100px")
+            .style("height", "20px")
+            .style("border-color", "cyan")
+            // .style("position", "relative")
+            // .style("bottom", "10px")
+            .style("border", "none")
+            .text((d)=>{
+                if (sort_key == "pokedex_number") {return ""}
+                return sort_key + ": " + d[sort_key]})
+    
+    })
+}
+
+reset_pokedex(true)
+
+init_pokedex_sort_buttons = () => {
+    pokedex_sort_buttons = d3.select(".pokedex_sort_buttons")
+        
+
+    pokedex_sort_buttons
+        .append("button")
+        .text("hp")
+        .attr("class", "pokedex_sort_button")
+        .on("click", ()=>{
+            sort_key="hp"
+            sort_reverse=true
+            reset_pokedex()}
+        )
+
+    pokedex_sort_buttons
+        .append("button")
+        .text("attack")
+        .attr("class", "pokedex_sort_button")
+        .on("click", ()=>{
+            sort_key="attack"
+            sort_reverse=true
+            reset_pokedex()}
+        )
+
+    pokedex_sort_buttons
+        .append("button")
+        .text("defense")
+        .attr("class", "pokedex_sort_button")
+        .on("click", ()=>{
+            sort_key="defense"
+            sort_reverse=true
+            reset_pokedex()}
+        )
+
+    pokedex_sort_buttons
+        .append("button")
+        .text("sp. atk.")
+        .attr("class", "pokedex_sort_button")
+        .on("click", ()=>{
+            sort_key="sp_attack"
+            sort_reverse=true
+            reset_pokedex()}
+        )
+
+    pokedex_sort_buttons
+        .append("button")
+        .text("sp. def.")
+        .attr("class", "pokedex_sort_button")
+        .on("click", ()=>{
+            sort_key="sp_defense"
+            sort_reverse=true
+            reset_pokedex()}
+        )
+
+}
+init_pokedex_sort_buttons()
+
+party_data = [{}, {}, {}, {}, {}, {}];
+
+get_avg_stat = (key) => {
+    var total = 0
+    var n = 0
+    for(var i=0; i < 6; i++){
+        pd = party_data[i]
+        val = pd[key]
+        if (val == undefined) {continue;}
+        total += parseInt(val)
+        n += 1
+    }
+    if (n == 0) {return 0}
+
+    avg = total / n
+    avg_all = stats[key]
+    // console.log(avg)
+    // console.log(stats)
+    return ((avg / avg_all) - 1.0) * 100.0
+}
+
+type_colors = {
+    "normal": "#aa9",
+    "fire": "#f42",
+    "water": "#39f",
+    "electric": "#fc3",
+    "grass": "#7c5",
+    "ice": "#6cf",
+    "fighting": "#b54",
+    "poison": "#a59",
+    "ground": "#db5",
+    "flying": "#89f",
+    "psychic": "#f59",
+    "bug": "#ab2",
+    "rock": "#ba6",
+    "ghost": "66b",
+    "dragon": "#76e",
+    "dark": "#754",
+    "steel": "#aab",
+    "fairy": "#e9e"
+}
+
+reset_party_datum =(i)=>{
+    d = party_data[i]
+
+    d.filled=false
+    d.name = "blank"
+    d.type1 = ""
+    d.type2 = ""
+
+    d.hp = undefined
+    d.attack = undefined
+    d.defense = undefined
+    d.sp_attack = undefined
+    d.sp_defense = undefined
+
+
+}
+
+for (var i=0; i<6; i++) {
+    d = party_data[i]
+    d.id = i
+    reset_party_datum(i)
+}
+
+get_pokemon_img = (d) => {
+    name = d.name.toLowerCase()
+    outliers = {
+        "nidoran♀": "nidoran-f",
+        "nidoran♂": "nidoran-m",
+        "farfetch'd": "farfetchd",
+        "mr. mime": "mr-mime",
+        "mime jr.": "mime-jr",
+    }
+    if (d.name == "blank") {
+        return "pokemon_images/blank.jpg"
+    }
+    if (outliers[name] != undefined) {
+        return "pokemon_images/" + outliers[name] + ".gif"
+    }
+    return "pokemon_images/" + name + ".gif"
+}
+
+on_click_remove_from_party = (d, i)=>{
+    reset_party_datum(i)
+    reset_party(party_data)
+    reset_summary_stats()
+}
+
+on_click_pokedex = (d)=>{
+
+    pokedex = d3.select(".pokedex_elem").selectAll("div").remove()
+
+
+    selected = d3.select(this)
+    parent = d3.select(this.parentNode)
+
+    large_display = d3.select("#large_display")
+        .style("border-color", ()=>{
+            if (d.type1 == undefined) { return "black"}
+            return type_colors[d.type1]
+        })
+
+    d3.select("#large_display_image")
+        .attr("src", get_pokemon_img(d))
+    d3.select("#large_display_name")
+        .text(d.name)
+    d3.select("#large_display_type_1")
+        .text("type 1: " + d.type1)
+    d3.select("#large_display_type_2")
+        .text("type 2: " + d.type2)
+    d3.select("#large_display_hp")
+        .text("hp: " + d.hp)
+    d3.select("#large_display_attack")
+        .text("attack: " + d.attack)
+    d3.select("#large_display_special_attack")
+        .text("special attack: " + d.sp_attack)
+    d3.select("#large_display_defense")
+        .text("defense: " + d.defense)
+    d3.select("#large_display_special_defense")
+        .text("special defense: " + d.sp_defense)
+    d3.select("#button_add_to_team")
+        .on("click", on_click_add_to_team(d))
+
+}
+
+
+reset_party = (party_data, init=false)=>{
+
+    party = d3.select(".party")
+
+    if (init) {
+        
+        party_slots = party.selectAll("div")
+            .data(party_data)
+            .enter().append("div")
+            .attr("class", "party_slot")
+            .attr("id", (d, i)=>("party_slot_" + i))
+            .on("click", on_click_pokedex)
+            // .style("border-color", (d)=>(d.color))
+
+        holder = party_slots.append("div")
+            .attr("class", "party_name_type_holder")
+            
+
+        party_names = holder
+            .append("div")
+            .attr("class", "party_name")
+            .attr("id", (d, i)=>("party_name_" + i))
+            // .text((d)=>(d.name))
+
+        party_types = holder
+            .append("div")
+            .attr("class", "party_type1")
+            .attr("id", (d, i)=>("party_type1_" + i))
+            // .text("type1 type2")
+        
+        party_imgs = party_slots
+            .append("img")
+            .attr("id", (d, i)=>("party_img_" + i))
+            .attr("class", "party_img")
+            .attr("src", "pokemon_images/blank.jpg")
+
+        button_remove = party_slots
+            .append("button")
+            .attr("id", (d, i)=>("party_button_remove_" + i))
+            .attr("class", "party_button_remove")
+            .text("X")
+            .on("click", on_click_remove_from_party)
+    }
+
+    party_names = d3.selectAll(".party_name")
+        .data(party_data)
+        .text((d)=>(d.name))
+        .style("color",(d)=>{
+            if (d.name == "blank") {return "white"}
+            return "black"
+        })
+        
+
+    party_types = d3.selectAll(".party_type1")
+        .data(party_data)
+        .text((d)=>(d.type1.toUpperCase()))
+        .style("color",(d)=>{
+            if (d.name == "blank") {return "white"}
+            return "black"
+        })
+        .style("background-color", (d)=>{
+            if (type_colors[d.type1] == undefined) {return "gray"}
+            
+            else {
+                return type_colors[d.type1]}
+        })
+        .style("border",(d)=>{
+            if (d.name == "blank") {return "white"}
+            else {return "0.5px solid grey"}
+        })
+
+    party_imgs = d3.selectAll(".party_img")
+        .data(party_data)
+        .attr("src", get_pokemon_img)
+
+}
+reset_party(party_data, init=true)
+
+
+on_click_add_to_team = (d)=>(()=>{
+    for (i in [0, 1, 2, 3, 4, 5]) {
+
+        if (party_data[i].filled == true) {
+            continue;
+        }
+        pd = party_data[i]
+        pd.name = d.name
+        pd.type1 = d.type1
+        pd.type2 = d.type2
+        pd.filled = true;
+        
+        pd.hp = d.hp
+        pd.attack = d.attack
+        pd.defense = d.defense
+        pd.sp_attack = d.sp_attack
+        pd.sp_defense = d.sp_defense
+
+
+        reset_party(party_data)
+        reset_summary_stats()
+       
+        break;
+    }
+})
+
+
+
+// https://bl.ocks.org/mbostock/2368837
+
+
+reset_summary_stats = () => {
+
+
+    var margin = {top: 50, right: 60, bottom: 40, left: 100},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+    var x = d3.scale.linear()
+        .range([0, width]);
+
+    var y = d3.scale.ordinal()
+        .rangeRoundBands([0, height], 0.1);
+
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .tickSize(0)
+        .tickPadding(6);
+
+    d3.selectAll(".plot_elems").selectAll("*").remove()
+
+    plot_elems = d3.select(".plot_holder")
+        .append("div")
+        .attr("class", "plot_elems")
+
+    var svg = plot_elems.append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    plot_data = [
+        {value: get_avg_stat("hp"), name:"hp", key:"hp"},
+        {value: get_avg_stat("attack"), name:"attack", key:"attack"},
+        {value: get_avg_stat("defense"), name:"defense", key:"defense"},
+        {value: get_avg_stat("sp_attack"), name:"sp. attack", key:"sp_attack"},
+        {value: get_avg_stat("sp_defense"), name:"sp. defense", key:"sp_defense"},
+        {value: -80.5, name: "", key:"hp"},
+        {value: 80.5, name: "", key:"hp"},
+    ]
+
+    x.domain(d3.extent(plot_data, function(d) { return d.value; })).nice();
+    y.domain(plot_data.map(function(d) { return d.name; }));
+
+    svg.selectAll(".bar").remove()
+
+    svg.selectAll(".bar")
+        .data(plot_data)
+        .enter().append("rect")
+        .attr("class", function(d) { return "bar bar--" + (d.value < 0 ? "negative" : "positive"); })
+        .attr("x", function(d) { return x(Math.min(0, d.value)); })
+        .attr("y", function(d) { return y(d.name); })
+        .attr("width", function(d) { return Math.abs(x(d.value) - x(0)); })
+        .attr("height", y.rangeBand())
+        .style("fill", (d)=>{
+            // console.log(Math.abs(d.value))
+            if (Math.abs(d.value) == 80.5) {return "white"}
+            if (d.value < 0) {return "red"}
+            else {return "steelblue"}
+        })
+
+    svg.selectAll(".bar")
+        .append("rect")
+        .attr("class", (d)=>("bar bar--negative"))
+        .attr("class", ()=>("plot_" + d.name))
+        .attr("x", "0")
+        .attr("y", (d)=>y("blank"))
+        .attr("width", function(d) { return Math.abs(x(-100) - x(0)); })
+        .attr("height", y.rangeBand())
+
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+
+    svg.append("g")
+        .attr("class", "y axis")
+        .attr("transform", "translate(" + x(0) + ",0)")
+        .call(yAxis);
+
+    svg.append("text")
+        .attr("class", "x label")
+        .attr("text-anchor", "end")
+        .attr("x", width - 300)
+        .attr("y", height + 35)
+        .text("average percent better than overall average")
+
+
+}
+
+reset_summary_stats()
+
+
+
+
+
+
+
+
+</script>
